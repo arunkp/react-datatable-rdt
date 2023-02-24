@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# React Data Table RDT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React Tables on steroids, build a powerful table with all flexibility and customization out of the box.
 
-## Available Scripts
+-----------
 
-In the project directory, you can run:
+## Getting started
 
-### `npm start`
+<pre>npm i react-datatable-rdt</pre>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<pre>import ReactDataTableRDT from 'react-datatable-rdt'</pre> 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Once you are done with importing, you can start using the `<ReactDataTableRDT />` component.
 
-### `npm test`
+### Mandatory Props
+``` 
+/*
+  @rows accepts a array of objects with keys same as column field values as data
+  IMPORTANT: use exactly same keys in the objects as mentioned as field value of columns.
+*/  
+  rows: rowType[];
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+/*
+  @columns accepts a array of objects, every object must have field and fieldHeader
+  IMPORTANT: The field value will be used to map the rows.
+*/
+  columns: columnType[];
+  ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Example
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<ReactDataTableRDT
+    tableTitle={<h1>This is a table header</h1>}
+    rows={[
+        { id: '1', name: 'Arun Rao',  email: 'arun@example.com' },
+        { id: '2', name: 'John Doe', email: 'john@example.com' },
+    ]}
+    columns={[
+        { field: 'id', fieldHeader: 'ID' },
+        { field: 'name', fieldHeader: 'Name' },
+        { field: 'email', fieldHeader: 'Email' },
+    ]}
+    />
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How to contribute?
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- git clone this repository or fork this repository
+- make your changes in a new branch
+- create a Pull Request
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contributors
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Arun Rao](https://www.linkedin.com/in/arunraokalya)
