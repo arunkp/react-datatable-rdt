@@ -16,7 +16,10 @@
     "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@src/*": ["./src/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "lib"]

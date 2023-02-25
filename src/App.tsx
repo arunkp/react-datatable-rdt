@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import ReactDataTableRDT, { columnType } from 'react-datatable-rdt';
+import ReactDataTableRDT from './data-table';
+import { columnType } from '@src/utils/PropTypes';
 
 const App = () => {
   const [columnData, setcolumnData] = useState<columnType[] | string>(
