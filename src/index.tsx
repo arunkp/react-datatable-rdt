@@ -36,20 +36,30 @@ const ReactDataTableRDT = ({
   return (
     <>
       <div>{tableTitle}</div>
-      <table>
-        <thead>
-          <tr>
-            {columns.map((el) => {
-              return <th>{el.field}</th>;
-            })}
-          </tr>
+      <table data-testid="table">
+        <thead data-testid="thead">
+          {columns.length > 0 && (
+            <tr>
+              {columns.map((el, i) => {
+                return (
+                  <th key={i} data-testid="col-name">
+                    {el.field}
+                  </th>
+                );
+              })}
+            </tr>
+          )}
         </thead>
-        <tbody>
-          {rows.map((row) => {
+        <tbody data-testid="tbody">
+          {rows.map((row, i) => {
             return (
-              <tr>
-                {columns.map((el) => {
-                  return <td>{row[el.field]}</td>;
+              <tr key={i} data-testid="table-row">
+                {columns.map((el, j) => {
+                  return (
+                    <td key={`${i}.${j}`} data-testid="row-val">
+                      {row[el.field]}
+                    </td>
+                  );
                 })}
               </tr>
             );
