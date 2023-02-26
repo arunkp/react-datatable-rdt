@@ -58,6 +58,7 @@ interface PropsWithData extends CommonProps {
     Optional
   */
   data: dataType[];
+  perPageSize?: number;
   paginated?: never;
 }
 
@@ -69,6 +70,7 @@ interface PropsWithPagination extends CommonProps {
     take: number;
   };
   data?: never;
+  perPageSize?: never;
 }
 
 export declare type Props = PropsWithData | PropsWithPagination;
