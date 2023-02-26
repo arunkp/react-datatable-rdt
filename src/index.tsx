@@ -63,6 +63,40 @@ const ReactDataTableRDT = ({
     }
   }, 100);
 
+  const selectionHandler = (
+    e: ChangeEvent<HTMLInputElement>,
+    row: dataType
+  ) => {
+    if (e.currentTarget.checked) {
+      setSelectedRows([...selectedRows, row] as dataType[]);
+    } else {
+      setSelectedRows([
+        ...selectedRows.filter((sRow) => sRow !== row),
+      ] as dataType[]);
+    }
+    setselectAllChecked(selectedRows === data);
+  };
+
+  const nextButtonHandler = () => {
+    setcurrentPage(currentPage + 1);
+  };
+
+  const prevButtonHandler = () => {
+    setcurrentPage(currentPage - 1);
+  };
+
+  const pageNumberClickHandler = (el: number) => {
+    setcurrentPage(el);
+  };
+
+  useEffect(() => {
+    pageData(paginated);
+  }, [paginated, pageData]);
+
+  useEffect(() => {
+    getSelectedRow && getSelectedRow(selectedRows);
+  }, [selectedRows, getSelectedRow]);
+
   useEffect(() => {
     if (typeof columns === 'string') {
       settableHeaders(
@@ -97,40 +131,6 @@ const ReactDataTableRDT = ({
       setisPrevButtonDisabled(currentPage === 0);
     }
   }, [data, currentPage, pageSize, paginated]);
-
-  useEffect(() => {
-    pageData(paginated);
-  }, [paginated, pageData]);
-
-  const selectionHandler = (
-    e: ChangeEvent<HTMLInputElement>,
-    row: dataType
-  ) => {
-    if (e.currentTarget.checked) {
-      setSelectedRows([...selectedRows, row] as dataType[]);
-    } else {
-      setSelectedRows([
-        ...selectedRows.filter((sRow) => sRow !== row),
-      ] as dataType[]);
-    }
-    setselectAllChecked(selectedRows === data);
-  };
-
-  useEffect(() => {
-    getSelectedRow && getSelectedRow(selectedRows);
-  }, [selectedRows, getSelectedRow]);
-
-  const nextButtonHandler = () => {
-    setcurrentPage(currentPage + 1);
-  };
-
-  const prevButtonHandler = () => {
-    setcurrentPage(currentPage - 1);
-  };
-
-  const pageNumberClickHandler = (el: number) => {
-    setcurrentPage(el);
-  };
 
   return (
     <div className="rdt-wrapper">
