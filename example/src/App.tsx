@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import ReactDataTableRDT, { dataType } from 'react-datatable-rdt';
+import ReactDataTableRDT, { dataType } from '../../lib/cjs';
+import './App.css';
 
 const App = () => {
   const [rawData] = useState<dataType[]>([
@@ -18,30 +19,28 @@ const App = () => {
   ]);
 
   return (
-    <>
-      <div style={{ margin: '20px' }}>
-        {rawData && (
-          <ReactDataTableRDT
-            tableTitle={<h1>This is a table header</h1>}
-            selectable
-            // columns={[
-            //   { field: 'id', fieldHeader: 'ID' },
-            //   { field: 'firstName', fieldHeader: 'First Name' },
-            //   { field: 'lastName', fieldHeader: 'last Name' },
-            //   { field: 'age', fieldHeader: 'Age' },
-            // ]}
-            // data={rawData}
-            // getSelectedRow={(rows) => console.log('rows->', rows)}
-            paginated={{
-              data: rawData,
-              total: rawData.length,
-              skip: 3,
-              take: 3,
-            }}
-          />
-        )}
-      </div>
-    </>
+    <div className="wrapper">
+      {rawData && (
+        <ReactDataTableRDT
+          tableTitle={<h1>This is a table header</h1>}
+          selectable
+          // columns={[
+          //   { field: 'id', fieldHeader: 'ID' },
+          //   { field: 'firstName', fieldHeader: 'First Name' },
+          //   { field: 'lastName', fieldHeader: 'last Name' },
+          //   { field: 'age', fieldHeader: 'Age' },
+          // ]}
+          // data={rawData}
+          // getSelectedRow={(rows) => console.log('rows->', rows)}
+          paginated={{
+            data: rawData,
+            total: rawData.length,
+            skip: 3,
+            take: 3,
+          }}
+        />
+      )}
+    </div>
   );
 };
 
