@@ -12,7 +12,6 @@ export declare type CommonProps = {
     tableTitle?: ReactNode | string;
     columns?: string | columnType[];
     selectable?: boolean;
-    useObjectKeysForColumnNames?: boolean;
     getSelectedRow?: (selectedRows: dataType[]) => void;
 };
 interface PropsWithData extends CommonProps {
