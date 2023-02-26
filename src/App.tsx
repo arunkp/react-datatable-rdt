@@ -1,31 +1,63 @@
 import React, { useState } from 'react';
 import ReactDataTableRDT from './data-table';
-import { columnType } from '@src/utils/PropTypes';
+import Papa from 'papaparse';
+import { rowType } from './utils/PropTypes';
 
 const App = () => {
-  const [columnData, setcolumnData] = useState<columnType[] | string>(
-    'id name'
-  );
+  const [rawData, setrawData] = useState<rowType[]>([
+    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    // ['1', 'Snow', 'Jon', '35'],
+  ]);
 
   const changeData = () => {
-    setcolumnData([
+    setrawData([
       { field: 'id', fieldHeader: 'ID' },
       { field: 'name', fieldHeader: 'Name' },
       { field: 'email', fieldHeader: 'Email' },
     ]);
   };
 
+  const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.currentTarget && e.currentTarget.files?.length) {
+      Papa.parse(e.currentTarget.files[0], {
+        complete: (result) => {
+          if (Array.isArray(result.data)) {
+            setrawData(result.data);
+          }
+        },
+      });
+    }
+  };
+
   return (
     <>
-      <ReactDataTableRDT
-        tableTitle={<h1>This is a table header</h1>}
-        rows={[
-          { id: '1', name: 'Arun Rao' },
-          { id: '2', name: 'John Doe', email: 'john@example.com' },
-        ]}
-        columns={columnData}
-        selectable
-      />
+      <div>
+        Upload a file
+        <input onChange={onFileUpload} placeholder="upload file" type="file" />
+      </div>
+      {rawData && (
+        <ReactDataTableRDT
+          tableTitle={<h1>This is a table header</h1>}
+          selectable
+          columns={[
+            { field: 'id', fieldHeader: 'ID' },
+            { field: 'firstName', fieldHeader: 'First Name' },
+            { field: 'lastName', fieldHeader: 'last Name' },
+            { field: 'age', fieldHeader: 'Age' },
+          ]}
+          data={rawData}
+        />
+      )}
       <button onClick={changeData}>Change Data</button>
     </>
   );

@@ -8,7 +8,11 @@ export declare type columnType = {
 };
 export declare type Props = {
     tableTitle?: ReactNode | string;
-    rows: rowType[];
-    columns: string | columnType[];
+    columns?: string | columnType[];
     selectable?: boolean;
+    data: rowType[] | string[][];
+    useObjectKeysForColumnNames?: boolean;
+    pageSize?: number;
+    rowsPerPageOptions?: number[];
+    isCSV?: boolean;
 };

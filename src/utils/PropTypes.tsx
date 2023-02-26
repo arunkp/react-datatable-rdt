@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export declare type rowType = {
-  [key: string]: string;
+  [key: string]: string | number | null;
 };
 
 export declare type columnType = {
@@ -12,23 +12,43 @@ export declare type columnType = {
 export declare type Props = {
   /*
     @tableTitle adds some text above the table, it could be a any HTML/JSX tag or a string
+    Optional
     */
   tableTitle?: ReactNode | string;
-
-  /*
-    @rows accepts a array of objects with keys same as column field values as data
-    IMPORTANT: use exactly same keys in the objects as mentioned as field value of columns.
-    */
-  rows: rowType[];
 
   /*
     @columns accepts a array of objects, every object must have field and fieldHeader
     IMPORTANT: The field value will be used to map the rows.
     */
-  columns: string | columnType[];
+  columns?: string | columnType[];
 
   /*
     @selectable makes all the rows selectable with a visible checkbox
+    default: false;
+    Optional
     */
   selectable?: boolean;
+
+  /*
+    @data Raw data to be filled instead of rows and columns
+    Optional
+  */
+  data: rowType[] | (string | number | null)[][];
+
+  /*
+    @useObjectKeysForColumnNames 
+    default: true;
+    Optional
+    Depends on: data prop
+  */
+  useObjectKeysForColumnNames?: boolean;
+
+  /*
+    @pagination
+  */
+  pageSize?: number;
+
+  /*
+   */
+  rowsPerPageOptions?: number[];
 };
