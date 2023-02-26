@@ -24,7 +24,7 @@ export declare type CommonProps = {
     @columns accepts a array of objects, every object must have field and fieldHeader
     IMPORTANT: The field value will be used to map the rows.
     */
-  columns?: string | columnType[];
+  columns?: string | columnType[] | undefined;
 
   /*
     @selectable makes all the rows selectable with a visible checkbox

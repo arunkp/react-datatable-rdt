@@ -2,7 +2,6 @@ import React, { useEffect, useState, ChangeEvent } from 'react';
 import useDebounce from './utils/useDebounce';
 import humanizeStr from './utils/humanizeString';
 import { Props, columnType, dataType, rowType } from './utils/PropTypes';
-import humanize from './utils/humanizeString';
 import './css/checkbox.css';
 import './css/index.css';
 
@@ -113,7 +112,7 @@ const ReactDataTableRDT = ({
       const uniqueKeys = [...new Set(result)];
       settableHeaders(
         uniqueKeys.map((label, _) => {
-          return { field: label, fieldHeader: humanize(label) };
+          return { field: label, fieldHeader: humanizeStr(label) };
         })
       );
     } else {
@@ -122,15 +121,16 @@ const ReactDataTableRDT = ({
   }, [columns, data, paginated]);
 
   useEffect(() => {
+    pages && setisPrevButtonDisabled(currentPage === 0);
     if (!paginated) {
       const paginatedData = paginateRow([...data], pageSize);
-      const paginatedDataLength = paginatedData.length - 1;
       setpages(paginatedData.length);
       settableRows(paginatedData[currentPage]);
-      setisNextButtonDisabled(currentPage === paginatedDataLength);
-      setisPrevButtonDisabled(currentPage === 0);
+      setisNextButtonDisabled(currentPage === paginatedData.length - 1);
+    } else {
+      pages && setisNextButtonDisabled(currentPage === pages - 1);
     }
-  }, [data, currentPage, pageSize, paginated]);
+  }, [data, currentPage, pageSize, paginated, pages]);
 
   return (
     <div className="rdt-wrapper">
@@ -220,9 +220,8 @@ const ReactDataTableRDT = ({
           </div>
         ) : (
           <div>
-            Showing ${perPageSize * currentPage} to $
-            {perPageSize * currentPage + perPageSize} from ${data.length}
-            entries
+            Showing {perPageSize * currentPage} to{' '}
+            {perPageSize * currentPage + perPageSize} from {data.length} entries
           </div>
         )}
         <div className="rdt-page-navigation">
@@ -261,4 +260,3 @@ const ReactDataTableRDT = ({
 };
 
 export default ReactDataTableRDT;
-export { Props, columnType, dataType, rowType };
