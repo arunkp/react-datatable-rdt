@@ -1,6 +1,7 @@
 {
   "name": "react-datatable-rdt",
-  "version": "0.2.6",
+  "author": "Arun Rao",
+  "version": "0.2.7",
   "private": false,
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
