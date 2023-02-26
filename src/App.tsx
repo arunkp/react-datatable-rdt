@@ -21,9 +21,9 @@ const App = () => {
 
   const changeData = () => {
     setrawData([
-      { field: 'id', fieldHeader: 'ID' },
-      { field: 'name', fieldHeader: 'Name' },
-      { field: 'email', fieldHeader: 'Email' },
+      { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+      { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+      { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
     ]);
   };
 
@@ -55,7 +55,9 @@ const App = () => {
           //   { field: 'lastName', fieldHeader: 'last Name' },
           //   { field: 'age', fieldHeader: 'Age' },
           // ]}
+          // columns={'id firstName lastName age'}
           data={rawData}
+          getSelectedRow={(rows) => console.log(rows)}
         />
       )}
       <button onClick={changeData}>Change Data</button>

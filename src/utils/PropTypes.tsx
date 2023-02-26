@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export declare type rowType = {
-  [key: string]: string | number | null;
+  [key: string]: string | number;
 };
 
 export declare type columnType = {
@@ -9,7 +9,7 @@ export declare type columnType = {
   fieldHeader: string;
 };
 
-export declare type dataType = rowType[] | (string | number | null)[][];
+export declare type dataType = rowType;
 
 export declare type Props = {
   /*
@@ -35,7 +35,7 @@ export declare type Props = {
     @data Raw data to be filled instead of rows and columns
     Optional
   */
-  data: dataType;
+  data: dataType[];
 
   /*
     @useObjectKeysForColumnNames 
@@ -46,13 +46,23 @@ export declare type Props = {
   useObjectKeysForColumnNames?: boolean;
 
   /*
-    @pagination
+    @pageSize: is a number you can set to display
+    @default: 5;
   */
   pageSize?: number;
 
   /*
+  @rowsPerPageOptions: you can use this to set options for the number of rows in a page
+  @default: [5,10,20]
    */
   rowsPerPageOptions?: number[];
-
-  getSelectedRow?: (row: rowType) => void;
+  /*
+  @getSelectedRow is a function which gives all the selected rows by the user.
+  */
+  getSelectedRow?: (selectedRows: dataType[]) => void;
+  /*
+  paginationMode 
+  @default: 'client'
+  */
+  paginationMode?: 'server' | 'client';
 };

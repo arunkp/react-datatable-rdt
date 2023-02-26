@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
-import useDebounce from './utils/useDebounce';
+import React, { useEffect, useState, ChangeEvent } from 'react';
+// import useDebounce from './utils/useDebounce';
 import humanizeStr from './utils/humanizeString';
-import { Props, columnType } from './utils/PropTypes';
+import { Props, columnType, dataType } from './utils/PropTypes';
 import humanize from './utils/humanizeString';
 
 const ReactDataTableRDT = ({
@@ -11,15 +11,15 @@ const ReactDataTableRDT = ({
   columns,
   rowsPerPageOptions = [5, 10, 20],
   getSelectedRow,
-}: Props): JSX.Element => {
-  const inputEls = useRef<any>([]);
+}: // paginationMode,
+Props): JSX.Element => {
   const [tableHeaders, settableHeaders] = useState<columnType[]>();
   const [tableRows, settableRows] = useState<string[]>();
   const [currentPage, setcurrentPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
   const [pages, setpages] = useState<number | undefined>();
   const [selectAllChecked, setselectAllChecked] = useState<boolean>(false);
-
+  const [selectedRows, setSelectedRows] = useState<dataType[]>([]);
   const [isNextButtonDisabled, setisNextButtonDisabled] = useState<
     boolean | undefined
   >(false);
@@ -70,16 +70,23 @@ const ReactDataTableRDT = ({
     setisPrevButtonDisabled(currentPage === 0);
   }, [data, currentPage, pageSize]);
 
-  const changeHandler = useDebounce(() => {
-    inputEls.current.map((inputEl: HTMLInputElement) => {
-      inputEl.checked = selectAllChecked;
-      return inputEl;
-    });
-  }, 500);
+  const selectionHandler = (
+    e: ChangeEvent<HTMLInputElement>,
+    row: dataType
+  ) => {
+    if (e.currentTarget.checked) {
+      setSelectedRows([...selectedRows, row] as dataType[]);
+    } else {
+      setSelectedRows([
+        ...selectedRows.filter((sRow) => sRow !== row),
+      ] as dataType[]);
+    }
+    setselectAllChecked(selectedRows === data);
+  };
 
   useEffect(() => {
-    changeHandler();
-  }, [selectAllChecked, currentPage, changeHandler]);
+    getSelectedRow && getSelectedRow(selectedRows);
+  }, [selectedRows, getSelectedRow]);
 
   return (
     <>
@@ -91,7 +98,14 @@ const ReactDataTableRDT = ({
               {selectable && (
                 <th>
                   <input
-                    onChange={() => setselectAllChecked(!selectAllChecked)}
+                    onChange={(e) => {
+                      if (e.currentTarget.checked) {
+                        setSelectedRows([...data]);
+                      } else {
+                        setSelectedRows([]);
+                      }
+                      setselectAllChecked(e.currentTarget.checked);
+                    }}
                     type="checkbox"
                     placeholder="select"
                     checked={selectAllChecked}
@@ -117,8 +131,8 @@ const ReactDataTableRDT = ({
                   {selectable && (
                     <td>
                       <input
-                        onChange={() => getSelectedRow && getSelectedRow(row)}
-                        checked={selectAllChecked}
+                        onChange={(e) => selectionHandler(e, row)}
+                        checked={selectedRows.includes(row)}
                         type="checkbox"
                         placeholder="select"
                       />
