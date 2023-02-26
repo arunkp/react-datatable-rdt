@@ -1,15 +1,15 @@
 import { ReactNode } from 'react';
 
 export declare type rowType = {
-  [key: string]: string | number;
+  [key: string]: string | number | null;
 };
+
+export declare type dataType = rowType | (string | number | null)[];
 
 export declare type columnType = {
   field: string;
   fieldHeader: string;
 };
-
-export declare type dataType = rowType;
 
 export declare type Props = {
   /*

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import ReactDataTableRDT from './data-table';
 import Papa from 'papaparse';
-import { rowType } from './utils/PropTypes';
+import { dataType } from './utils/PropTypes';
 
 const App = () => {
-  const [rawData, setrawData] = useState<rowType[] | string[][]>([
+  const [rawData, setrawData] = useState<dataType[]>([
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
@@ -16,14 +16,14 @@ const App = () => {
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
     { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
     { id: 11, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-    // ['1', 'Snow', 'Jon', '35'],
+    // [1, 'Snow', 'Jon', '35'],
   ]);
 
   const changeData = () => {
     setrawData([
-      { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-      { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-      { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+      { field: 'id', fieldHeader: 'ID' },
+      { field: 'name', fieldHeader: 'Name' },
+      { field: 'email', fieldHeader: 'Email' },
     ]);
   };
 
@@ -55,7 +55,6 @@ const App = () => {
           //   { field: 'lastName', fieldHeader: 'last Name' },
           //   { field: 'age', fieldHeader: 'Age' },
           // ]}
-          // columns={'id firstName lastName age'}
           data={rawData}
           getSelectedRow={(rows) => console.log(rows)}
         />

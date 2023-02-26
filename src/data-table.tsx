@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 // import useDebounce from './utils/useDebounce';
 import humanizeStr from './utils/humanizeString';
-import { Props, columnType, dataType } from './utils/PropTypes';
+import { Props, columnType, dataType, rowType } from './utils/PropTypes';
 import humanize from './utils/humanizeString';
 
 const ReactDataTableRDT = ({
@@ -14,7 +14,7 @@ const ReactDataTableRDT = ({
 }: // paginationMode,
 Props): JSX.Element => {
   const [tableHeaders, settableHeaders] = useState<columnType[]>();
-  const [tableRows, settableRows] = useState<string[]>();
+  const [tableRows, settableRows] = useState<dataType[]>();
   const [currentPage, setcurrentPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
   const [pages, setpages] = useState<number | undefined>();
@@ -30,7 +30,7 @@ Props): JSX.Element => {
 
   useEffect(() => {
     const generateColumns = () => {
-      const result = data && data.flatMap(Object.keys);
+      const result = data && (data as rowType[]).flatMap(Object.keys);
       const uniqueKeys = [...new Set(result)];
       settableHeaders(
         uniqueKeys.map((label, _) => {
