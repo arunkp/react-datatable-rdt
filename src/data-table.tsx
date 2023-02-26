@@ -86,7 +86,6 @@ const ReactDataTableRDT = ({
         ),
       ]);
     }
-    return settableRows([]);
   }, 100);
 
   useEffect(() => {
@@ -214,12 +213,14 @@ const ReactDataTableRDT = ({
         </table>
       </div>
       <div className="rdt-page-options">
-        {paginated && (
+        {paginated ? (
           <div>
-            showing {`${currentPage * paginated?.skip}`} to{' '}
+            Showing {`${currentPage * paginated?.skip}`} to{' '}
             {`${currentPage * paginated?.skip + paginated?.skip}`} of{' '}
             {`${paginated.total}`} entries
           </div>
+        ) : (
+          <div></div>
         )}
         <div className="rdt-page-navigation">
           <button

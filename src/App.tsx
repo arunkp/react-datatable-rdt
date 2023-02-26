@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import ReactDataTableRDT from './data-table';
-import Papa from 'papaparse';
 import { dataType } from './utils/PropTypes';
 
 const App = () => {
-  const [rawData, setrawData] = useState<dataType[]>([
+  const [rawData] = useState<dataType[]>([
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
@@ -19,32 +18,8 @@ const App = () => {
     // [1, 'Snow', 'Jon', '35'],
   ]);
 
-  const changeData = () => {
-    setrawData([
-      { field: 'id', fieldHeader: 'ID' },
-      { field: 'name', fieldHeader: 'Name' },
-      { field: 'email', fieldHeader: 'Email' },
-    ]);
-  };
-
-  const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (e.currentTarget && e.currentTarget.files?.length) {
-      Papa.parse(e.currentTarget.files[0], {
-        complete: (result) => {
-          if (Array.isArray(result.data)) {
-            setrawData(result.data);
-          }
-        },
-      });
-    }
-  };
-
   return (
     <>
-      <div>
-        Upload a file
-        <input onChange={onFileUpload} placeholder="upload file" type="file" />
-      </div>
       <div style={{ margin: '20px' }}>
         {rawData && (
           <ReactDataTableRDT
@@ -56,18 +31,17 @@ const App = () => {
             //   { field: 'lastName', fieldHeader: 'last Name' },
             //   { field: 'age', fieldHeader: 'Age' },
             // ]}
-            // data={rawData}
-            getSelectedRow={(rows) => console.log('rows->', rows)}
-            paginated={{
-              data: rawData,
-              total: rawData.length,
-              skip: 3,
-              take: 3,
-            }}
+            data={rawData}
+            // getSelectedRow={(rows) => console.log('rows->', rows)}
+            // paginated={{
+            //   data: rawData,
+            //   total: rawData.length,
+            //   skip: 3,
+            //   take: 3,
+            // }}
           />
         )}
       </div>
-      <button onClick={changeData}>Change Data</button>
     </>
   );
 };

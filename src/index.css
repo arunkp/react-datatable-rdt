@@ -123,16 +123,26 @@ th:last-child {
 
 .rdt-wrapper .rdt-page-navigation{
     display: flex;
+    gap: 4px;
 }
 
 .rdt-wrapper .rdt-page-navigation .rdt-pages ul {
     display: flex;
     padding: 0;
     margin: 0;
+    gap: 4px;
 }
 
 .rdt-wrapper .rdt-page-navigation .rdt-pages ul li {
     list-style-type: none;
+}
+
+.rdt-wrapper .rdt-page-navigation .rdt-pages ul li button {
+    background: #f4f4f4;
+    border: 1px solid #b4b4b4;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }
 
 @media (min-width: 40rem) {
