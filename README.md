@@ -3,7 +3,7 @@
 # React Data Table(RDT)
 
 ## React Tables on steroids, build a powerful table with all flexibility and customization out of the box.
-
+[Example Code](https://github.com/arunkp/react-datatable-rdt-example)
 -----------
 
 ## Getting started
