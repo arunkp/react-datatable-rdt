@@ -1,6 +1,6 @@
 {
   "name": "react-datatable-rdt",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "private": false,
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -25,7 +25,8 @@
     "prepublishOnly": "npm run build",
     "test": "react-scripts test",
     "copy-files:esm": "copyfiles -u 1 src/**/*.css lib/esm/",
-    "copy-files:cjs": "copyfiles -u 1 src/**/*.css lib/cjs/"
+    "copy-files:cjs": "copyfiles -u 1 src/**/*.css lib/cjs/",
+    "postinstall": "cd example && npm install"
   },
   "eslintConfig": {
     "extends": [
