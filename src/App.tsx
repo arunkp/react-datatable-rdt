@@ -4,7 +4,7 @@ import Papa from 'papaparse';
 import { rowType } from './utils/PropTypes';
 
 const App = () => {
-  const [rawData, setrawData] = useState<rowType[]>([
+  const [rawData, setrawData] = useState<rowType[] | string[][]>([
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
@@ -15,7 +15,7 @@ const App = () => {
     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
     { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-    { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    { id: 11, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
     // ['1', 'Snow', 'Jon', '35'],
   ]);
 
@@ -49,12 +49,12 @@ const App = () => {
         <ReactDataTableRDT
           tableTitle={<h1>This is a table header</h1>}
           selectable
-          columns={[
-            { field: 'id', fieldHeader: 'ID' },
-            { field: 'firstName', fieldHeader: 'First Name' },
-            { field: 'lastName', fieldHeader: 'last Name' },
-            { field: 'age', fieldHeader: 'Age' },
-          ]}
+          // columns={[
+          //   { field: 'id', fieldHeader: 'ID' },
+          //   { field: 'firstName', fieldHeader: 'First Name' },
+          //   { field: 'lastName', fieldHeader: 'last Name' },
+          //   { field: 'age', fieldHeader: 'Age' },
+          // ]}
           data={rawData}
         />
       )}

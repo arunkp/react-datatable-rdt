@@ -10,13 +10,15 @@ const ReactDataTableRDT = ({
   selectable = false,
   columns,
   rowsPerPageOptions = [5, 10, 20],
+  getSelectedRow,
 }: Props): JSX.Element => {
   const inputEls = useRef<any>([]);
-  const selectAllRef = useRef<any>(null);
   const [tableHeaders, settableHeaders] = useState<columnType[]>();
   const [tableRows, settableRows] = useState<string[]>();
   const [currentPage, setcurrentPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
+  const [pages, setpages] = useState<number | undefined>();
+  const [selectAllChecked, setselectAllChecked] = useState<boolean>(false);
 
   const [isNextButtonDisabled, setisNextButtonDisabled] = useState<
     boolean | undefined
@@ -27,6 +29,15 @@ const ReactDataTableRDT = ({
   >(false);
 
   useEffect(() => {
+    const generateColumns = () => {
+      const result = data && data.flatMap(Object.keys);
+      const uniqueKeys = [...new Set(result)];
+      settableHeaders(
+        uniqueKeys.map((label, _) => {
+          return { field: label, fieldHeader: humanize(label) };
+        })
+      );
+    };
     if (typeof columns === 'string') {
       settableHeaders(
         columns
@@ -35,14 +46,12 @@ const ReactDataTableRDT = ({
             (el): columnType => ({ field: el, fieldHeader: humanizeStr(el) })
           )
       );
+    } else if (!columns) {
+      generateColumns();
     } else {
       settableHeaders(columns);
     }
-
-    if (!columns) {
-      generateColumns();
-    }
-  }, [columns]);
+  }, [columns, data]);
 
   function paginateRow(arr: any, size: number) {
     let pages = [];
@@ -53,9 +62,9 @@ const ReactDataTableRDT = ({
   }
 
   useEffect(() => {
-    generateColumns();
     const paginatedData = paginateRow([...data], pageSize);
-    const paginatedDataLength = paginatedData.length;
+    const paginatedDataLength = paginatedData.length - 1;
+    setpages(paginatedData.length);
     settableRows(paginatedData[currentPage]);
     setisNextButtonDisabled(currentPage === paginatedDataLength);
     setisPrevButtonDisabled(currentPage === 0);
@@ -63,20 +72,14 @@ const ReactDataTableRDT = ({
 
   const changeHandler = useDebounce(() => {
     inputEls.current.map((inputEl: HTMLInputElement) => {
-      inputEl.checked = selectAllRef.current.checked;
+      inputEl.checked = selectAllChecked;
       return inputEl;
     });
-  }, 300);
+  }, 500);
 
-  const generateColumns = () => {
-    const result = data && data.flatMap(Object.keys);
-    const uniqueKeys = [...new Set(result)];
-    settableHeaders(
-      uniqueKeys.map((label) => {
-        return { field: label, fieldHeader: humanize(label) };
-      })
-    );
-  };
+  useEffect(() => {
+    changeHandler();
+  }, [selectAllChecked, currentPage, changeHandler]);
 
   return (
     <>
@@ -88,10 +91,10 @@ const ReactDataTableRDT = ({
               {selectable && (
                 <th>
                   <input
-                    onChange={changeHandler}
+                    onChange={() => setselectAllChecked(!selectAllChecked)}
                     type="checkbox"
                     placeholder="select"
-                    ref={selectAllRef}
+                    checked={selectAllChecked}
                   />
                 </th>
               )}
@@ -110,11 +113,12 @@ const ReactDataTableRDT = ({
           {tableRows &&
             tableRows.map((row: any, i: any) => {
               return (
-                <tr key={`row--${i}`} data-testid="table-row">
+                <tr key={`${currentPage}${i}`} data-testid="table-row">
                   {selectable && (
                     <td>
                       <input
-                        ref={(el) => (inputEls.current[i] = el)}
+                        onChange={() => getSelectedRow && getSelectedRow(row)}
+                        checked={selectAllChecked}
                         type="checkbox"
                         placeholder="select"
                       />
@@ -123,7 +127,10 @@ const ReactDataTableRDT = ({
                   {tableHeaders &&
                     tableHeaders.map((el, j) => {
                       return (
-                        <td key={`row-${el}-${i}-${j}`} data-testid="row-val">
+                        <td
+                          key={`${currentPage}${i}${j}`}
+                          data-testid="row-val"
+                        >
                           {row[el.field] || row[j]}
                         </td>
                       );
@@ -133,34 +140,47 @@ const ReactDataTableRDT = ({
             })}
         </tbody>
       </table>
-      <select
-        title="Per Page"
-        onChange={(e) => {
-          setPageSize(Number(e.currentTarget.value));
-        }}
-      >
-        {rowsPerPageOptions.map((rowSize, i) => {
-          return (
-            <option key={i} value={rowSize}>
-              {rowSize}
-            </option>
-          );
-        })}
-      </select>
-      <button
-        disabled={isPrevButtonDisabled}
-        title="prev page"
-        onClick={() => setcurrentPage(currentPage - 1)}
-      >
-        Prev Page
-      </button>
-      <button
-        disabled={isNextButtonDisabled}
-        title="next page"
-        onClick={() => setcurrentPage(currentPage + 1)}
-      >
-        Next Page
-      </button>
+      <div>
+        <select
+          title="Per Page"
+          onChange={(e) => {
+            setPageSize(Number(e.currentTarget.value));
+          }}
+        >
+          {rowsPerPageOptions.map((rowSize, i) => {
+            return (
+              <option key={i} value={rowSize}>
+                {rowSize}
+              </option>
+            );
+          })}
+        </select>
+        <button
+          disabled={isPrevButtonDisabled}
+          title="prev page"
+          onClick={() => setcurrentPage(currentPage - 1)}
+        >
+          {'<<'}
+        </button>
+        <button
+          disabled={isNextButtonDisabled}
+          title="next page"
+          onClick={() => setcurrentPage(currentPage + 1)}
+        >
+          {'>>'}
+        </button>
+      </div>
+      <div>
+        <ul>
+          {Array.from(Array(pages).keys()).map((el, i) => (
+            <li key={i}>
+              <button title="page" onClick={() => setcurrentPage(el)}>
+                {el + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 };

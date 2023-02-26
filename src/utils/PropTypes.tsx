@@ -9,6 +9,8 @@ export declare type columnType = {
   fieldHeader: string;
 };
 
+export declare type dataType = rowType[] | (string | number | null)[][];
+
 export declare type Props = {
   /*
     @tableTitle adds some text above the table, it could be a any HTML/JSX tag or a string
@@ -33,7 +35,7 @@ export declare type Props = {
     @data Raw data to be filled instead of rows and columns
     Optional
   */
-  data: rowType[] | (string | number | null)[][];
+  data: dataType;
 
   /*
     @useObjectKeysForColumnNames 
@@ -51,4 +53,6 @@ export declare type Props = {
   /*
    */
   rowsPerPageOptions?: number[];
+
+  getSelectedRow?: (row: rowType) => void;
 };
