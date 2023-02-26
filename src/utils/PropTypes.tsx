@@ -11,7 +11,9 @@ export declare type columnType = {
   fieldHeader: string;
 };
 
-export declare type Props = {
+export declare type PaginationType = 'server' | 'client';
+
+export declare type CommonProps = {
   /*
     @tableTitle adds some text above the table, it could be a any HTML/JSX tag or a string
     Optional
@@ -32,12 +34,6 @@ export declare type Props = {
   selectable?: boolean;
 
   /*
-    @data Raw data to be filled instead of rows and columns
-    Optional
-  */
-  data: dataType[];
-
-  /*
     @useObjectKeysForColumnNames 
     default: true;
     Optional
@@ -50,19 +46,29 @@ export declare type Props = {
     @default: 5;
   */
   pageSize?: number;
-
-  /*
-  @rowsPerPageOptions: you can use this to set options for the number of rows in a page
-  @default: [5,10,20]
-   */
-  rowsPerPageOptions?: number[];
   /*
   @getSelectedRow is a function which gives all the selected rows by the user.
   */
   getSelectedRow?: (selectedRows: dataType[]) => void;
-  /*
-  paginationMode 
-  @default: 'client'
-  */
-  paginationMode?: 'server' | 'client';
 };
+
+interface PropsWithData extends CommonProps {
+  /*
+    @data Raw data to be filled instead of rows and columns
+    Optional
+  */
+  data: dataType[];
+  paginated?: never;
+}
+
+interface PropsWithPagination extends CommonProps {
+  paginated: {
+    data: dataType[];
+    total: number;
+    skip: number;
+    take: number;
+  };
+  data?: never;
+}
+
+export declare type Props = PropsWithData | PropsWithPagination;
