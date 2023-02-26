@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import ReactDataTableRDT from 'react-datatable-rdt';
-import { dataType } from 'react-datatable-rdt/src/utils/PropTypes';
 
 const App = () => {
-  const [rawData] = useState<dataType[]>([
+  const [rawData] = useState([
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
