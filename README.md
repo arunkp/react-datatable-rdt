@@ -1,4 +1,6 @@
-# React Data Table RDT
+![github_cover](https://user-images.githubusercontent.com/4560500/221427285-ab662d6b-f96b-4471-a73a-4cefc9e9bf48.png)
+
+# React Data Table(RDT)
 
 ## React Tables on steroids, build a powerful table with all flexibility and customization out of the box.
 
