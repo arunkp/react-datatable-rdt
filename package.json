@@ -1,6 +1,6 @@
 {
   "name": "react-datatable-rdt",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": false,
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -20,10 +20,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "build:esm": "tsc && npm run copy-files:esm",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs && npm run copy-files:cjs",
     "prepublishOnly": "npm run build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "copy-files:esm": "copyfiles -u 1 src/**/*.css lib/esm/",
+    "copy-files:cjs": "copyfiles -u 1 src/**/*.css lib/cjs/"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +52,8 @@
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "jest": "^27.5.1"
+    "copyfiles": "^2.4.1",
+    "jest": "^27.5.1",
+    "rimraf": "^4.1.2"
   }
 }
