@@ -71,7 +71,7 @@ Once you are done with importing, you can start using the `<ReactDataTableRDT />
 
 <ReactDataTableRDT
     tableTitle={<h1>This is a table header</h1>}
-    rows={[
+    data={[
         { id: '1', name: 'Arun Rao',  email: 'arun@example.com' },
         { id: '2', name: 'John Doe', email: 'john@example.com' },
     ]}
