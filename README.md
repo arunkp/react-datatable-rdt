@@ -14,18 +14,61 @@ Once you are done with importing, you can start using the `<ReactDataTableRDT />
 
 ### Mandatory Props
 ``` 
-/*
-  @rows accepts a array of objects with keys same as column field values as data
-  IMPORTANT: use exactly same keys in the objects as mentioned as field value of columns.
-*/  
-  rows: rowType[];
+  /*
+    @tableTitle adds some text above the table, it could be a any HTML/JSX tag or a string
+    Optional
+    */
+  tableTitle?: ReactNode | string;
+
+  /*
+    @columns accepts a array of objects, every object must have field and fieldHeader
+    IMPORTANT: The field value will be used to map the rows.
+    */
+  columns?: string | columnType[];
+
+  /*
+    @selectable makes all the rows selectable with a visible checkbox
+    default: false;
+    Optional
+    */
+  selectable?: boolean;
+
+  /*
+    @useObjectKeysForColumnNames 
+    default: true;
+    Optional
+    Depends on: data prop
+  */
+  useObjectKeysForColumnNames?: boolean;
+  
+  /*
+  @getSelectedRow is a function which gives all the selected rows by the user.
+  */
+  getSelectedRow?: (selectedRows: dataType[]) => void;
+
+  conditional Props:
+  IMPORTANT: You can only pass data prop or paginated prop, not both.
+
+  data: dataType[];
+
+  /* 
+  perPageSize: number of rows
+  @default: 5
+
+   */
+  perPageSize?: number;
+  
+  /*
+  pagined: if you use this prop,  you cant use data prop
+  */
+  paginated: {
+    data: dataType[];
+    total: number;
+    skip: number;
+    take: number;
+  };
 
 
-/*
-  @columns accepts a array of objects, every object must have field and fieldHeader
-  IMPORTANT: The field value will be used to map the rows.
-*/
-  columns: columnType[];
   ```
 
 ## Example

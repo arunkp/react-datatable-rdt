@@ -42,11 +42,6 @@ export declare type CommonProps = {
   useObjectKeysForColumnNames?: boolean;
 
   /*
-    @pageSize: is a number you can set to display
-    @default: 5;
-  */
-  pageSize?: number;
-  /*
   @getSelectedRow is a function which gives all the selected rows by the user.
   */
   getSelectedRow?: (selectedRows: dataType[]) => void;
