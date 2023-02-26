@@ -8,7 +8,7 @@
 
 ## Getting started
 
-<pre>npm i react-datatable-rdt</pre>
+<pre>npm i react-datatable-rdt@latest</pre>
 
 <pre>import ReactDataTableRDT from 'react-datatable-rdt'</pre> 
 
@@ -65,32 +65,60 @@ Once you are done with importing, you can start using the `<ReactDataTableRDT />
 
   ```
 
-## Example
+## Basic Usage
 
 ```
+import React, { useState } from 'react';
+import ReactDataTableRDT, { dataType } from 'react-datatable-rdt';
 
-<ReactDataTableRDT
-    tableTitle={<h1>This is a table header</h1>}
-    data={[
-        { id: '1', name: 'Arun Rao',  email: 'arun@example.com' },
-        { id: '2', name: 'John Doe', email: 'john@example.com' },
-    ]}
-    columns={[
-        { field: 'id', fieldHeader: 'ID' },
-        { field: 'name', fieldHeader: 'Name' },
-        { field: 'email', fieldHeader: 'Email' },
-    ]}
-    />
+const App = () => {
+  const [rawData] = useState<dataType[]>([
+    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    { id: 11, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  ]);
+
+  return (
+    <>
+      <div style={{ margin: '20px' }}>
+        {rawData && (
+          <ReactDataTableRDT
+            tableTitle={<h1>This is a table header</h1>}
+            selectable
+            columns={[
+              { field: 'id', fieldHeader: 'ID' },
+              { field: 'firstName', fieldHeader: 'First Name' },
+              { field: 'lastName', fieldHeader: 'last Name' },
+              { field: 'age', fieldHeader: 'Age' },
+            ]}
+            data={rawData}
+            getSelectedRow={(rows) => console.log('rows->', rows)}
+          />
+        )}
+      </div>
+    </>
+  );
+};
+
+export default App;
 
 ```
 
 ## How to contribute?
 
-- git clone this repository or fork this repository
+- Clone this repository or fork this repository
 - make your changes in a new branch
 - create a Pull Request
 
 
 ## Contributors
 
-- [Arun Rao](https://www.linkedin.com/in/arunraokalya)
+- Arun Rao [Github](https://github.com/arunkp) - [Linkedin](https://www.linkedin.com/in/arunraokalya)

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import ReactDataTableRDT from 'react-datatable-rdt';
-import { dataType } from 'react-datatable-rdt/lib/cjs/utils/PropTypes';
+import ReactDataTableRDT, { dataType } from 'react-datatable-rdt';
 
 const App = () => {
   const [rawData] = useState<dataType[]>([
