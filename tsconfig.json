@@ -18,6 +18,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"],
+  "include": ["src", "src/index.spec.tsx"],
   "exclude": ["node_modules", "lib"]
 }

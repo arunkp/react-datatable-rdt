@@ -31,14 +31,14 @@ const App = () => {
             //   { field: 'lastName', fieldHeader: 'last Name' },
             //   { field: 'age', fieldHeader: 'Age' },
             // ]}
-            data={rawData}
+            // data={rawData}
             // getSelectedRow={(rows) => console.log('rows->', rows)}
-            // paginated={{
-            //   data: rawData,
-            //   total: rawData.length,
-            //   skip: 3,
-            //   take: 3,
-            // }}
+            paginated={{
+              data: rawData,
+              total: rawData.length,
+              skip: 3,
+              take: 3,
+            }}
           />
         )}
       </div>
