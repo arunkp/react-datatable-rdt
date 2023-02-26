@@ -261,3 +261,4 @@ const ReactDataTableRDT = ({
 };
 
 export default ReactDataTableRDT;
+export { Props, columnType, dataType, rowType };
