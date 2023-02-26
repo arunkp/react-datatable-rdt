@@ -1,6 +1,6 @@
 {
   "name": "react-datatable-rdt",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": false,
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -44,7 +44,9 @@
     ]
   },
   "files": [
-    "/lib"
+    "/lib",
+    "/utils",
+    "/css"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
