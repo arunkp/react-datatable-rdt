@@ -32,14 +32,6 @@ Once you are done with importing, you can start using the `<ReactDataTableRDT />
     Optional
     */
   selectable?: boolean;
-
-  /*
-    @useObjectKeysForColumnNames 
-    default: true;
-    Optional
-    Depends on: data prop
-  */
-  useObjectKeysForColumnNames?: boolean;
   
   /*
   @getSelectedRow is a function which gives all the selected rows by the user.

@@ -34,14 +34,6 @@ export declare type CommonProps = {
   selectable?: boolean;
 
   /*
-    @useObjectKeysForColumnNames 
-    default: true;
-    Optional
-    Depends on: data prop
-  */
-  useObjectKeysForColumnNames?: boolean;
-
-  /*
   @getSelectedRow is a function which gives all the selected rows by the user.
   */
   getSelectedRow?: (selectedRows: dataType[]) => void;
