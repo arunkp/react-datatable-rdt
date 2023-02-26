@@ -10,7 +10,7 @@ export declare type columnType = {
 export declare type PaginationType = 'server' | 'client';
 export declare type CommonProps = {
     tableTitle?: ReactNode | string;
-    columns?: string | columnType[];
+    columns?: string | columnType[] | undefined;
     selectable?: boolean;
     getSelectedRow?: (selectedRows: dataType[]) => void;
 };
