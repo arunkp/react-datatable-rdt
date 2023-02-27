@@ -14,7 +14,7 @@
 
 Once you are done with importing, you can start using the `<ReactDataTableRDT />` component.
 
-### Mandatory Props
+### Props
 ``` 
   /*
     @tableTitle adds some text above the table, it could be a any HTML/JSX tag or a string
